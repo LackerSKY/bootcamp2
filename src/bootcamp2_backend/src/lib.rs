@@ -13,5 +13,12 @@ fn greet(name: String, last_name: i8) -> String {
 fn dodaj_wpis(wpis: String) {
     WPISY.with(|wpisy: &RefCell<Vec<String>>| {
         wpisy.borrow_mut().push(wpis)
+    });
+}
+
+#[ic_cdk::query]
+fn odczytaj_wpisy() -> Vec<String> {
+    WPISY.with(|wpisy: &RefCell<Vec<String>>| {
+        wpisy.borrow().clone()
     })
 }
