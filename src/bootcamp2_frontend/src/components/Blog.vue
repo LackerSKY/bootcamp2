@@ -9,6 +9,7 @@
                 <p>id: {{ index }}</p>
                 <p>{{ wpis }}</p>
                 <button @click="usunWpis(index)" class="bg-blue-600 rounded text-white p-4">usun</button>
+                <button @click="edytujWpis(index,wpis)" class="bg-blue-600 rounded text-white p-4">edytuj</button>
             </div>
         </div>
         <div class="flex justfy-center flex-col">
@@ -35,6 +36,11 @@ export default {
         },
         async usunWpis(index) {
             await bootcamp2_backend.usun_wpis(index);
+            await this.pobierzWpisy();
+        },
+        async edytujWpis(index,wpis) {
+            let text = prompt("Podaj tekst do edycji",wpis);
+            await bootcamp2_backend.edytuj_wpis(index,text);
             await this.pobierzWpisy();
         },
         async pobierzWpisy() {
