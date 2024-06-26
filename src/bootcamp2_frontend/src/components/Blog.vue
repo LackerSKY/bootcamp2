@@ -5,8 +5,10 @@
             <button @click="pobierzWpisy" class="bg-blue-600 rounded text-white p-4">refresh</button>
         </div>
         <div class="grid mx-6 gap-4 my-4">
-            <div v-for="wpis in wpisy" class="drop-shadow-xl bg-stone-300 p-4">
+            <div v-for="(wpis,index) in wpisy" class="drop-shadow-xl bg-stone-300 p-4">
+                <p>id: {{ index }}</p>
                 <p>{{ wpis }}</p>
+                <button @click="usunWpis(index)" class="bg-blue-600 rounded text-white p-4">usun</button>
             </div>
         </div>
         <div class="flex justfy-center flex-col">
@@ -29,6 +31,11 @@ export default {
     methods: {
         async dodajWpisy() {
             await bootcamp2_backend.dodaj_wpis(this.nowyBlog);
+            await this.pobierzWpisy();
+        },
+        async usunWpis(index) {
+            await bootcamp2_backend.usun_wpis(index);
+            await this.pobierzWpisy();
         },
         async pobierzWpisy() {
             this.wpisy = await bootcamp2_backend.odczytaj_wpisy();
